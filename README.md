@@ -4,6 +4,8 @@ This project is use to learn how to upload excel file in the spring boot and sto
 
 For Upload simple excel file 
 Instraction :
+
+Create your own or Use given UserData.xls file for test api
 create a new excel file 
 Now first row will be header and then data of user
 Id | Name | Email          | Age |
