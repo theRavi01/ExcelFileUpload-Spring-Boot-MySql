@@ -1,6 +1,5 @@
 package com.excel.service;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +8,19 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.excel.UserRepository;
 import com.excel.model.User;
 
 @Service
 public class UserService {
 
+	@Autowired
+	private UserRepository userRepo;
+	
 	public void readExcel(MultipartFile file) throws Exception {
 		InputStream inputStream = file.getInputStream();
 		Workbook workbook = new XSSFWorkbook(inputStream);
@@ -32,6 +36,7 @@ public class UserService {
             System.out.println("User: ID=" + user.getId() + ", Email=" + user.getEmail() + ", Name=" + user.getName() + ", Age=" + user.getAge());
             userList.add(user);
 		}
+		userRepo.saveAll(userList);
 		workbook.close();
 		inputStream.close();
 	}
